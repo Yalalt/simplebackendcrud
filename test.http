@@ -1,0 +1,99 @@
+### All products awah
+GET http://localhost:3008/product HTTP/1.1
+
+
+### MAX Price Computer products awah
+GET http://localhost:3008/product/maxprcprod HTTP/1.1
+
+
+### Products 10-iig awah
+GET http://localhost:3008/product/?prod_no=4 HTTP/1.1
+
+### Products ID gaar awah
+GET http://localhost:3008/product/4005 HTTP/1.1
+
+
+### All category awah
+GET http://localhost:3008/category HTTP/1.1
+
+
+### Wish List View
+GET http://localhost:3008/wishlist HTTP/1.1
+
+
+### Users data View
+GET http://localhost:3008/user HTTP/1.1
+
+
+### VIEW Wishlist get users
+GET http://localhost:3008/user/uwl HTTP/1.1
+
+
+### Specification data View
+GET http://localhost:3008/specification HTTP/1.1
+
+
+### Product nemeh huselt
+POST http://localhost:3008/product HTTP/1.1
+Content-Type: application/json 
+
+{ 
+"id": 4008,
+"name":"MacBook Air Gold M1",
+"brandId": 2003,
+"categoryId": 1001,
+"desc": "Apple 2020 MacBook Air Laptop M1 Chip, 13 Retina Display, Backlit Keyboard, FaceTime HD Camera, Touch ID.",
+"sale": "0",
+"price": 1099.0,
+"stock": 5,
+"image": "https://m.media-amazon.com/images/I/81HZAfCGZ5L._AC_SX679_.jpg"
+}
+
+### Category nemeh huselt
+POST http://localhost:3008/category HTTP/1.1
+Content-Type: application/json
+
+{
+    "id": "1004",
+    "name":"console"
+}
+
+
+### User nemeh huselt
+POST http://localhost:3008/user HTTP/1.1
+Content-Type: application/json
+
+{
+    "id": 10007,
+    "name": "Michelle Choi ",
+    "role": "moderator",
+    "password": "12345678",
+    "email": "michelle@gmail.com",
+    "contact": "(721) 887766889",
+    "address1": "123 NYC Grand Plaza",
+    "address2": "Sunny way",
+    "user_image": "none"
+}
+
+### Specification ADD
+POST http://localhost:3008/specification HTTP/1.1
+Content-Type: application/json
+
+{
+    "specId": 3037,
+    "prodId": 4008,
+    "property": "Graphics Coprocessor",
+    "value": "Apple M1"
+}
+
+
+
+### Wish List ADD
+POST http://localhost:3008/wishlist HTTP/1.1
+Content-Type: application/json
+
+{
+    "id": 5007,
+    "userId": 10002,
+    "prodId": 4001
+}
