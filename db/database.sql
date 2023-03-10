@@ -7,7 +7,7 @@
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.0.25
 
-USE ecommerce;
+USE mern_db;
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;

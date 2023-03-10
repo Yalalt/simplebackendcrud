@@ -2,7 +2,7 @@ import { pool } from "../config/mysql_config.js";
 
 export async function getProducts(limit) {
   const [rows] = await pool.query(
-    "SELECT * FROM product limit ?",
+    "SELECT prod.id, prod.name, prod.created_date, prod.description, prod.sale, prod.price, prod.stock, prod.image, cat.name AS cat_name, bra.name AS brand_name FROM product prod LEFT JOIN category cat ON prod.category_id = cat.id LEFT JOIN brand bra ON prod.brand_id = bra.id limit ?",
     limit ? limit : 10
   );
 
@@ -11,6 +11,18 @@ export async function getProducts(limit) {
 
 export async function getProductById(prodId) {
   const [rows] = await pool.query("SELECT * FROM product WHERE id = ?", prodId);
+
+  return rows;
+}
+
+export async function getProductByCategoryId(catId) {
+  const [rows] = await pool.query("SELECT prod.id, prod.name, prod.created_date, prod.description, prod.sale, prod.price, prod.stock, prod.image, cat.name AS cat_name, bra.name AS brand_name FROM product prod LEFT JOIN category cat ON prod.category_id = cat.id LEFT JOIN brand bra ON prod.brand_id = bra.id WHERE cat.id = ?", catId);
+
+  return rows;
+}
+
+export async function getProductByBrandId(brandId) {
+  const [rows] = await pool.query("SELECT prod.id, prod.name, prod.created_date, prod.description, prod.sale, prod.price, prod.stock, prod.image, cat.name AS cat_name, bra.name AS brand_name FROM product prod LEFT JOIN category cat ON prod.category_id = cat.id LEFT JOIN brand bra ON prod.brand_id = bra.id WHERE bra.id = ?", brandId);
 
   return rows;
 }
@@ -46,11 +58,30 @@ export async function addProduct(
 }
 
 export async function addCategory(catId, catName) {
-  await pool.query("INSERT INTO category VALUES (?, ?)", [catId, catName]);
+    await pool.query("INSERT INTO category VALUES (?, ?)", [catId, catName]);
 }
 
 export async function getCategory() {
   const [rows] = await pool.query("SELECT * FROM category");
+  return rows;
+}
+
+export async function getLastCatId(){
+  const [rows]  = await pool.query("SELECT MAX(id) maxid FROM category");
+  return rows;
+}
+
+export async function addBrand(brandId, brandName) {
+    await pool.query("INSERT INTO brand VALUES (?, ?)", [brandId, brandName]);
+}
+
+export async function getBrand() {
+  const [rows] = await pool.query("SELECT * FROM brand");
+  return rows;
+}
+
+export async function getLastBrandId(){
+  const [rows]  = await pool.query("SELECT MAX(id) maxid FROM brand");
   return rows;
 }
 

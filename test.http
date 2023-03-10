@@ -6,8 +6,16 @@ GET http://localhost:3008/product HTTP/1.1
 GET http://localhost:3008/product/maxprcprod HTTP/1.1
 
 
-### Products 10-iig awah
-GET http://localhost:3008/product/?prod_no=4 HTTP/1.1
+### Products Toogoor awah
+GET http://localhost:3008/product/?prod_no=3 HTTP/1.1
+
+
+### Products brandeer awah
+GET http://localhost:3008/product/brand/?name=2003 HTTP/1.1
+
+
+### Products categorooor awah
+GET http://localhost:3008/product/category/?name=1001 HTTP/1.1
 
 ### Products ID gaar awah
 GET http://localhost:3008/product/4005 HTTP/1.1
@@ -54,8 +62,7 @@ POST http://localhost:3008/category HTTP/1.1
 Content-Type: application/json
 
 {
-    "id": "1004",
-    "name":"console"
+    "name":"Console"
 }
 
 
@@ -96,4 +103,16 @@ Content-Type: application/json
     "id": 5007,
     "userId": 10002,
     "prodId": 4001
+}
+
+
+### All brand awah
+GET http://localhost:3008/brand HTTP/1.1
+
+### Brand nemeh huselt
+POST http://localhost:3008/brand HTTP/1.1
+Content-Type: application/json
+
+{
+    "name":"Louis Vuitton"
 }

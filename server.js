@@ -8,6 +8,7 @@ import userRoutes from "./routes/users.js";
 import categoriesRoutes from "./routes/categories.js";
 import specificationRoutes from "./routes/specification.js";
 import wishlistRoutes from "./routes/wishlist.js";
+import brandRoutes from "./routes/brand.js";
 
 dotenv.config({ path: "./config/config.env" });
 const app = express();
@@ -20,6 +21,7 @@ app.use("/user", userRoutes);
 app.use("/category", categoriesRoutes);
 app.use("/specification", specificationRoutes);
 app.use("/wishlist", wishlistRoutes);
+app.use("/brand", brandRoutes);
 
 app.listen(process.env.PORT, () => {
   console.log(`Server running on ${process.env.PORT} port...`);

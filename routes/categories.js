@@ -1,5 +1,5 @@
 import express from "express";
-import { addCategory, getCategory } from "../services/services.js";
+import { addCategory, getCategory, getLastCatId } from "../services/services.js";
 
 const router = express.Router();
 
@@ -13,8 +13,19 @@ router.get("/", async (req, res) => {
 router.post("/", async (req, res) => {
   console.log("Add category huselt irlee");
 
-  categoryTable.push(req.body);
-  await addCategory(req.body.id, req.body.name);
+  const oldData = await getLastCatId();
+  
+  console.log(oldData[0].maxid);
+
+  const newCategory = {
+    id: oldData[0].maxid+1,
+    name: req.body.name
+  };
+
+  categoryTable.push(newCategory);
+
+  await addCategory(newCategory.id, newCategory.name);
+  
   res.status(200).send(categoryTable);
 });
 
