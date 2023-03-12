@@ -16,49 +16,49 @@ export async function getProductById(prodId) {
 }
 
 export async function getProductByCategoryId(catId) {
-  const [rows] = await pool.query("SELECT prod.id, prod.name, prod.created_date, prod.description, prod.sale, prod.price, prod.stock, prod.image, cat.name AS cat_name, bra.name AS brand_name FROM product prod LEFT JOIN category cat ON prod.category_id = cat.id LEFT JOIN brand bra ON prod.brand_id = bra.id WHERE cat.id = ?", catId);
+  const [rows] = await pool.query(
+    "SELECT prod.id, prod.name, prod.created_date, prod.description, prod.sale, prod.price, prod.stock, prod.image, cat.name AS cat_name, bra.name AS brand_name FROM product prod LEFT JOIN category cat ON prod.category_id = cat.id LEFT JOIN brand bra ON prod.brand_id = bra.id WHERE cat.id = ?",
+    catId
+  );
 
   return rows;
 }
 
 export async function getProductByBrandId(brandId) {
-  const [rows] = await pool.query("SELECT prod.id, prod.name, prod.created_date, prod.description, prod.sale, prod.price, prod.stock, prod.image, cat.name AS cat_name, bra.name AS brand_name FROM product prod LEFT JOIN category cat ON prod.category_id = cat.id LEFT JOIN brand bra ON prod.brand_id = bra.id WHERE bra.id = ?", brandId);
+  const [rows] = await pool.query(
+    "SELECT prod.id, prod.name, prod.created_date, prod.description, prod.sale, prod.price, prod.stock, prod.image, cat.name AS cat_name, bra.name AS brand_name FROM product prod LEFT JOIN category cat ON prod.category_id = cat.id LEFT JOIN brand bra ON prod.brand_id = bra.id WHERE bra.id = ?",
+    brandId
+  );
 
   return rows;
 }
 
-export async function addProduct(
-  id,
-  name,
-  brandId,
-  categoryId,
-  desc,
-  sale,
-  price,
-  stock,
-  image
-) {
+export async function addProduct(receivedData) {
   const registerDate = new Date().toISOString().slice(0, 10);
+  const { name, brandId, categoryId, desc, sale, price, stock, image } =
+    receivedData;
 
-  await pool.query(
-    "INSERT INTO product VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+  const result = await pool.query(
+    "INSERT INTO product (id, name, brand_id, category_id, created_date, description, sale, price, stock, image) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
     [
-      id,
+      null,
       name,
-      brandId,
-      categoryId,
+      Number(brandId),
+      Number(categoryId),
       registerDate,
       desc,
       sale,
-      price,
-      stock,
+      parseFloat(price),
+      Number(stock),
       image,
     ]
   );
+
+  return result;
 }
 
 export async function addCategory(catId, catName) {
-    await pool.query("INSERT INTO category VALUES (?, ?)", [catId, catName]);
+  await pool.query("INSERT INTO category VALUES (?, ?)", [catId, catName]);
 }
 
 export async function getCategory() {
@@ -66,13 +66,13 @@ export async function getCategory() {
   return rows;
 }
 
-export async function getLastCatId(){
-  const [rows]  = await pool.query("SELECT MAX(id) maxid FROM category");
+export async function getLastCatId() {
+  const [rows] = await pool.query("SELECT MAX(id) maxid FROM category");
   return rows;
 }
 
 export async function addBrand(brandId, brandName) {
-    await pool.query("INSERT INTO brand VALUES (?, ?)", [brandId, brandName]);
+  await pool.query("INSERT INTO brand VALUES (?, ?)", [brandId, brandName]);
 }
 
 export async function getBrand() {
@@ -80,8 +80,8 @@ export async function getBrand() {
   return rows;
 }
 
-export async function getLastBrandId(){
-  const [rows]  = await pool.query("SELECT MAX(id) maxid FROM brand");
+export async function getLastBrandId() {
+  const [rows] = await pool.query("SELECT MAX(id) maxid FROM brand");
   return rows;
 }
 

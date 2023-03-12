@@ -22,7 +22,6 @@ router.get("/?", async (req, res) => {
 });
 
 router.get("/category/?", async (req, res) => {
-  
   console.log("Category songoson");
   const { query } = req;
   console.log("Cat ID ", query.name);
@@ -32,7 +31,6 @@ router.get("/category/?", async (req, res) => {
 });
 
 router.get("/brand/?", async (req, res) => {
-  
   console.log("Brand songoson");
   const { query } = req;
   console.log("Brand ID ", query.name);
@@ -68,23 +66,18 @@ router.get("/:id", async (req, res) => {
 
 router.post("/", async (req, res) => {
   console.log("Request ADD Product");
-  productsTable.push(req.body);
+  
+  const { name, brandId, categoryId, desc, sale, price, stock, image } =
+  req.body;
 
-  const prod = req.body;
-  // ID hasaj vzeh
-  await addProduct(
-    prod.id,
-    prod.name,
-    prod.brandId,
-    prod.categoryId,
-    prod.desc,
-    prod.sale,
-    prod.price,
-    prod.stock,
-    prod.image
-  );
-
-  res.status(200).send(productsTable);
+  const newProduct = {
+    name, brandId, categoryId, desc, sale, price, stock, image
+  };
+  
+  productsTable.push(newProduct);
+  await addProduct(newProduct);
+  
+  res.status(200).send(newProduct);
 });
 
 export default router;

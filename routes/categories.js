@@ -7,7 +7,7 @@ let categoryTable = [];
 
 router.get("/", async (req, res) => {
   const result = await getCategory();
-  res.send({ status: "GET request", data: result });
+  res.json({ status: true, result });
 });
 
 router.post("/", async (req, res) => {

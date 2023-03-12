@@ -7,7 +7,7 @@ let brandsTable = [];
 
 router.get("/", async (req, res) => {
   const result = await getBrand();
-  res.send(result);
+  res.json({ status: true, result });
 });
 
 router.post("/", async (req, res) => {
